@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Thrive Safely</string>
+    <string name="main_title">Thrive Safely</string>
+    <string name="watering_can_image">watering_can_image</string>
+    <string name="plants_button_text">plants</string>
+    <string name="calendar_button_text">calendar</string>
+    <string name="textview">TextView</string>
+    <string name="add_new_plant_button">add new plant</string>
+    <string name="watering_intro_text">How often you want to water this plant:</string>
+    <string name="fertilizing_info_text">How often you want to fertilize this plant:</string>
+    <string name="how_often_text">Every %1d days</string>
+    <string name="acceptable_temperature_text">What temperature does it like:</string>
+    <string name="higher_than_temp_text">Higher than %1d *C</string>
+</resources>
