@@ -19,6 +19,10 @@
         <activity android:name=".PlantsActivity" />
         <activity android:name=".ChosenPlantActivity" />
         <activity android:name=".AddPlantActivity"></activity>
+        <provider
+            android:authorities="com.example.thrive.plants"
+            android:name=".data.PlantProvider"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

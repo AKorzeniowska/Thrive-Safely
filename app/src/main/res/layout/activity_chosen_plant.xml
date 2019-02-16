@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChosenPlantActivity">
+    tools:context=".ChosenPlantActivity"
+    android:background="@color/main_background">
 
     <TextView
         android:id="@+id/plant_name_textview"
-        android:layout_width="224dp"
+        android:layout_width="277dp"
         android:layout_height="69dp"
         android:layout_marginStart="192dp"
         android:layout_marginTop="47dp"
         android:layout_marginEnd="191dp"
         android:layout_marginBottom="501dp"
         android:fontFamily="cursive"
+        android:gravity="center"
         android:textColor="@color/main_title"
         android:textSize="@android:dimen/app_icon_size"
         android:textStyle="bold"
@@ -26,12 +28,13 @@
 
     <TextView
         android:id="@+id/plant_species_textview"
-        android:layout_width="86dp"
-        android:layout_height="28dp"
+        android:layout_width="251dp"
+        android:layout_height="27dp"
         android:layout_marginStart="165dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="165dp"
         android:fontFamily="cursive"
+        android:gravity="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

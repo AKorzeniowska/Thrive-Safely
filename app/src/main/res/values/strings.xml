@@ -11,4 +11,11 @@
     <string name="how_often_text">Every %1d days</string>
     <string name="acceptable_temperature_text">What temperature does it like:</string>
     <string name="higher_than_temp_text">Higher than %1d *C</string>
+    <string name="add_plant_form_name">Name</string>
+    <string name="add_plant_form_species">Species</string>
+    <string name="add_plant_form_watering">Watering every X days</string>
+    <string name="add_plant_form_fertilizing">Fertilizing every X days</string>
+    <string name="add_plant_form_min_temp">Minimum temperature</string>
+    <string name="add_plant_form_submit_button">Submit</string>
+    <string name="add_a_new_plant_title_text">Add a new plant</string>
 </resources>

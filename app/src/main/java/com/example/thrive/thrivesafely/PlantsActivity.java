@@ -22,7 +22,7 @@ import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 public class PlantsActivity extends AppCompatActivity {
     private PlantDBHelper mDbHelper;
     ArrayList<String> listViewData = new ArrayList<>();
-    private final static String FINAL_PLANT_NAME = "final_plant_name";
+    private final static String FINAL_PLANT_ID = "final_plant_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +42,8 @@ public class PlantsActivity extends AppCompatActivity {
 
     protected void listGetter(){
         listViewData.clear();
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String [] projection = {PlantEntry.COLUMN_NAME};
-        Cursor cursor = db.query(PlantEntry.TABLE_NAME, projection, null, null, null, null, null);
+        Cursor cursor = getContentResolver().query(PlantEntry.CONTENT_URI, projection, null, null, null);
 
         int nameColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_NAME);
         while (cursor.moveToNext()){
@@ -62,7 +61,7 @@ public class PlantsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent chosenPlantIntent = new Intent(PlantsActivity.this, ChosenPlantActivity.class);
-                chosenPlantIntent.putExtra(FINAL_PLANT_NAME, listViewData.get(position));
+                chosenPlantIntent.putExtra(FINAL_PLANT_ID, position);
                 startActivity(chosenPlantIntent);
             }
         });

@@ -11,9 +11,10 @@ import com.example.thrive.thrivesafely.data.PlantDBHelper;
 
 
 public class ChosenPlantActivity extends AppCompatActivity {
-    private static final String FINAL_PLANT_NAME = "final_plant_name";
+    private static final String FINAL_PLANT_ID = "final_plant_id";
     PlantDBHelper mDbHelper;
 
+    private Integer id;
     private String name;
     private String species;
     private Integer watering;
@@ -25,23 +26,22 @@ public class ChosenPlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chosen_plant);
         mDbHelper = new PlantDBHelper(this);
-        String name = getIntent().getStringExtra(FINAL_PLANT_NAME);
-        dataGetter(name);
+        id = getIntent().getIntExtra(FINAL_PLANT_ID, 0) + 1;    //adding 1 because tables in SQLite are not numbered from 0
+        dataGetter();
         dataSetter();
     }
 
-    protected void dataGetter (String plantName){
+    protected void dataGetter (){
         String [] projection = {PlantEntry.COLUMN_NAME,
                 PlantEntry.COLUMN_SPECIES,
                 PlantEntry.COLUMN_WATERING,
                 PlantEntry.COLUMN_FERTILIZING,
                 PlantEntry.COLUMN_MIN_TEMP
         };
-        String selection = PlantEntry.COLUMN_NAME + "=?";
-        String [] selectionArgs = {plantName};
+        String selection = PlantEntry._ID + "=?";
+        String [] selectionArgs = {String.valueOf(id)};
 
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Cursor cursor = db.query(PlantEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor cursor = getContentResolver().query(PlantEntry.CONTENT_URI_ID(id), projection, selection, selectionArgs, null);
 
         int nameColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_NAME);
         int speciesColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_SPECIES);
