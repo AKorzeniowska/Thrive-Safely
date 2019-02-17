@@ -18,4 +18,12 @@
     <string name="add_plant_form_min_temp">Minimum temperature</string>
     <string name="add_plant_form_submit_button">Submit</string>
     <string name="add_a_new_plant_title_text">Add a new plant</string>
+    <string name="edit_plant_button">Edit plant</string>
+    <string name="delete_plant_button">Delete plant</string>
+    <string name="edit_plant_title">Edit existing plant</string>
+    <string name="save_changes_form_button">Save changes</string>
+    <string name="deletion_warning_title">Careful!</string>
+    <string name="deletion_warning_message">You are going to delete every \ninfo about that plant. Proceed?</string>
+    <string name="cancel_deletion">Cancel</string>
+    <string name="confirm_deletion">Delete plant</string>
 </resources>

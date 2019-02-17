@@ -11,7 +11,7 @@ public class PlantDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_PLANTS_DATA = "CREATE TABLE " +
             PlantEntry.TABLE_NAME + "(" +
             PlantEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            PlantEntry.COLUMN_NAME + " TEXT, " +
+            PlantEntry.COLUMN_NAME + " TEXT NOT NULL, " +
             PlantEntry.COLUMN_SPECIES + " TEXT, " +
             PlantEntry.COLUMN_WATERING + " INTEGER NOT NULL, " +
             PlantEntry.COLUMN_FERTILIZING + " INTEGER, " +

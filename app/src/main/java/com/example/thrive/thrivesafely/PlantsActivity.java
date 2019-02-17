@@ -22,6 +22,7 @@ import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 public class PlantsActivity extends AppCompatActivity {
     private PlantDBHelper mDbHelper;
     ArrayList<String> listViewData = new ArrayList<>();
+    ArrayList<Integer> idList = new ArrayList<>();
     private final static String FINAL_PLANT_ID = "final_plant_id";
 
     @Override
@@ -40,20 +41,28 @@ public class PlantsActivity extends AppCompatActivity {
         chosenPlantIntentCreator();
     }
 
-    protected void listGetter(){
+    private void listGetter(){
         listViewData.clear();
-        String [] projection = {PlantEntry.COLUMN_NAME};
+        String [] projection = {PlantEntry._ID, PlantEntry.COLUMN_NAME, PlantEntry.COLUMN_SPECIES};
         Cursor cursor = getContentResolver().query(PlantEntry.CONTENT_URI, projection, null, null, null);
 
         int nameColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_NAME);
+        int speciesColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_SPECIES);
+        int idColumnIndex = cursor.getColumnIndex(PlantEntry._ID);
+
         while (cursor.moveToNext()){
             String currentName = cursor.getString(nameColumnIndex);
+            Integer currentId = Integer.parseInt(cursor.getString(idColumnIndex));
+            if (currentName.equals("")){
+                currentName = cursor.getString(speciesColumnIndex);
+            }
             listViewData.add(currentName);
+            idList.add(currentId);
         }
         cursor.close();
     }
 
-    protected void chosenPlantIntentCreator(){
+    private void chosenPlantIntentCreator(){
         final ListView listView = (ListView) findViewById(R.id.plants_listView_dynamic);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.listview_row_layout, listViewData);
         listView.setAdapter(adapter);
@@ -61,7 +70,7 @@ public class PlantsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent chosenPlantIntent = new Intent(PlantsActivity.this, ChosenPlantActivity.class);
-                chosenPlantIntent.putExtra(FINAL_PLANT_ID, position);
+                chosenPlantIntent.putExtra(FINAL_PLANT_ID, idList.get(position));
                 startActivity(chosenPlantIntent);
             }
         });

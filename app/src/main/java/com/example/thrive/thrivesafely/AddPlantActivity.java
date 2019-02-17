@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.thrive.thrivesafely.data.PlantContract;
 import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 import com.example.thrive.thrivesafely.data.PlantDBHelper;
+import com.example.thrive.thrivesafely.exceptions.IllegalInputData;
 
 public class AddPlantActivity extends AppCompatActivity {
     private PlantDBHelper mDbHelper;
@@ -42,102 +43,41 @@ public class AddPlantActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        displayDatabaseInfo();
     }
-
-    /**
-     * Temporary helper method to display information in the onscreen TextView about the state of
-     * the pets database.
-     */
-//    private void displayDatabaseInfo() {
-//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-//
-//        String[] projection = {
-//                PlantEntry._ID,
-//                PlantEntry.COLUMN_NAME,
-//                PlantEntry.COLUMN_SPECIES,
-//                PlantEntry.COLUMN_WATERING,
-//                PlantEntry.COLUMN_FERTILIZING,
-//                PlantEntry.COLUMN_MIN_TEMP };
-//
-//        Cursor cursor = db.query(
-//                PlantEntry.TABLE_NAME,   // The table to query
-//                projection,            // The columns to return
-//                null,                  // The columns for the WHERE clause
-//                null,                  // The values for the WHERE clause
-//                null,                  // Don't group the rows
-//                null,                  // Don't filter by row groups
-//                null);                   // The sort order
-//
-//        TextView displayView = (TextView) findViewById(R.id.addPlantTextView);
-//
-//        displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
-//        displayView.append(PlantEntry._ID + " - " +
-//                PlantEntry.COLUMN_NAME + " - " +
-//                PlantEntry.COLUMN_SPECIES + " - " +
-//                PlantEntry.COLUMN_WATERING + " - " +
-//                PlantEntry.COLUMN_FERTILIZING + "-" +
-//                PlantEntry.COLUMN_MIN_TEMP + "\n" );
-//
-//            int idColumnIndex = cursor.getColumnIndex(PlantEntry._ID);
-//            int nameColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_NAME);
-//            int speciesColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_SPECIES);
-//            int wateringColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_WATERING);
-//            int fertilizingColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_FERTILIZING);
-//            int minTempColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_MIN_TEMP);
-//
-//            while (cursor.moveToNext()) {
-//                int currentID = cursor.getInt(idColumnIndex);
-//                String currentName = cursor.getString(nameColumnIndex);
-//                String currentSpecies = cursor.getString(speciesColumnIndex);
-//                int currentWatering = cursor.getInt(wateringColumnIndex);
-//                int currentFertilizing = cursor.getInt(fertilizingColumnIndex);
-//                int currentMinTemp = cursor.getInt(minTempColumnIndex);
-//                displayView.append(("\n" + currentID + " - " +
-//                        currentName + " - " +
-//                        currentSpecies + " - " +
-//                        currentWatering + " - " +
-//                        currentFertilizing + " - " +
-//                        currentMinTemp));
-//            }
-//            cursor.close();
-//    }
-
-
-//    public void insertingPlant(View view){
-//        insertPlant();
-//        displayDatabaseInfo();
-//    }
-
-//    private void insertPlant() {
-//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(PlantEntry.COLUMN_NAME, "Toto");
-//        values.put(PlantEntry.COLUMN_SPECIES, "Terrier");
-//        values.put(PlantEntry.COLUMN_WATERING, 5);
-//        values.put(PlantEntry.COLUMN_FERTILIZING, 7);
-//        values.put(PlantEntry.COLUMN_MIN_TEMP, 4);
-//
-//        long newRowId = db.insert(PlantEntry.TABLE_NAME, null, values);
-//    }
 
     public void submitInsertedPlant(View view){
-        insertPlant();
-        Intent plantsIntent = new Intent(AddPlantActivity.this, PlantsActivity.class);
-        startActivity(plantsIntent);
+        if (insertPlant()) {
+            Intent plantsIntent = new Intent(AddPlantActivity.this, PlantsActivity.class);
+            startActivity(plantsIntent);
+        }
     }
 
-    private void insertPlant (){
+    private boolean insertPlant (){
         String nameString = mNameEditText.getText().toString().trim();
         String speciesString = mSpeciesEditText.getText().toString().trim();
         String wateringString = mWateringEditText.getText().toString().trim();
         String fertilizingString = mFertilizingEditText.getText().toString().trim();
         String minTempString = mMinTempEditText.getText().toString().trim();
 
+        try{
+            if (nameString.equals("") && speciesString.equals("")) {
+                throw new IllegalInputData(this, IllegalInputData.NO_GIVEN_NAME_OR_SPECIES);
+            }
+            if (wateringString.equals("")){
+                throw new IllegalInputData(this, IllegalInputData.NO_GIVEN_WATERING);
+            }
+        } catch (IllegalInputData ex) { return false; }
+
         int wateringInt = Integer.parseInt(wateringString);
-        int fertilizingInt = Integer.parseInt(fertilizingString);
-        int minTempInt = Integer.parseInt(minTempString);
+        Integer fertilizingInt = null;
+        Integer minTempInt = null;
+
+        if (!fertilizingString.equals("")){
+            fertilizingInt = Integer.parseInt(fertilizingString);
+        }
+        if (!minTempString.equals("")){
+            minTempInt = Integer.parseInt(minTempString);
+        }
 
         ContentValues values = new ContentValues();
         values.put(PlantEntry.COLUMN_NAME, nameString);
@@ -148,11 +88,12 @@ public class AddPlantActivity extends AppCompatActivity {
 
         Uri newUri = getContentResolver().insert(PlantEntry.CONTENT_URI, values);
         if (newUri == null){
-            Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Adding plant failed", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Plant has been added successfully", Toast.LENGTH_SHORT).show();
         }
+        return true;
     }
 
 }

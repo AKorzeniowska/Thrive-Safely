@@ -78,11 +78,44 @@ public class PlantProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        int match = uriMatcher.match(uri);
+        switch (match){
+            case PLANTS:
+                return deletePlants(uri, selection, selectionArgs);
+            case PLANT_ID:
+                selection = PlantEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return deletePlants(uri, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("unknown URI: " + uri);
+        }
     }
+
+    private int deletePlants(Uri uri, String selection, String[] selectionArgs){
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        return database.delete(PlantEntry.TABLE_NAME, selection, selectionArgs);
+    }
+
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+        int match = uriMatcher.match(uri);
+        switch (match){
+            case PLANTS:
+                return updatePlants(uri, values, selection, selectionArgs);
+            case PLANT_ID:
+                selection = PlantEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updatePlants(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("unknown URI: " + uri);
+        }
+    }
+
+    private int updatePlants(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+        if (values.size() == 0)
+            return 0;
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        return database.update(PlantEntry.TABLE_NAME, values, selection, selectionArgs);
     }
 }

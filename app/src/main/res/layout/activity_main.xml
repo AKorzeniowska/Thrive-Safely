@@ -58,6 +58,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
+        android:onClick="openCalendar"
         android:id="@+id/calendar_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="158dp"

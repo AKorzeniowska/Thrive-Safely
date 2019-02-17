@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPlantActivity"
+    tools:context=".EditPlantActivity"
     android:background="@color/main_background">
 
     <EditText
@@ -23,7 +23,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_new_plant_title" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_plant_title" />
 
     <EditText
         android:id="@+id/species_edit_text"
@@ -98,9 +98,10 @@
         app:layout_constraintTop_toBottomOf="@+id/fertilizing_edit_text" />
 
     <Button
-        android:id="@+id/sumbit_form_button"
+        android:onClick="submitUpdatedPlant"
+        android:id="@+id/save_changes_button"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="179dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
         android:layout_marginTop="23dp"
@@ -108,8 +109,7 @@
         android:layout_marginBottom="74dp"
         android:background="@color/main_title"
         android:fontFamily="cursive"
-        android:onClick="submitInsertedPlant"
-        android:text="@string/add_plant_form_submit_button"
+        android:text="@string/save_changes_form_button"
         android:textAllCaps="false"
         android:textColor="@color/main_background"
         android:textSize="30sp"
@@ -120,7 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/min_temp_edit_text" />
 
     <TextView
-        android:id="@+id/add_new_plant_title"
+        android:id="@+id/edit_plant_title"
         android:layout_width="264dp"
         android:layout_height="52dp"
         android:layout_marginStart="60dp"
@@ -128,7 +128,7 @@
         android:layout_marginEnd="60dp"
         android:fontFamily="cursive"
         android:gravity="center"
-        android:text="@string/add_a_new_plant_title_text"
+        android:text="@string/edit_plant_title"
         android:textColor="@color/main_title"
         android:textSize="28sp"
         android:textStyle="bold"

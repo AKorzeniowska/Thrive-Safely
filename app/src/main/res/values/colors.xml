@@ -2,5 +2,5 @@
 <resources>
     <color name="main_background">#dbfcc4</color>
     <color name="main_title">#1d8716</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#1d8716</color>
 </resources>
