@@ -41,6 +41,13 @@ public class ChosenPlantActivity extends AppCompatActivity {
         dataSetter();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dataGetter();
+        dataSetter();
+    }
+
     protected void dataGetter (){
         String [] projection = {PlantEntry.COLUMN_NAME,
                 PlantEntry.COLUMN_SPECIES,
@@ -120,6 +127,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
         }
         Intent plantListIntent = new Intent(ChosenPlantActivity.this, PlantsActivity.class);
         startActivity(plantListIntent);
+        finish();
     }
 
     private void showDeleteConfirmationDialog() {

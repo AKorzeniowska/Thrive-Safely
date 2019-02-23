@@ -26,4 +26,5 @@
     <string name="deletion_warning_message">You are going to delete every \ninfo about that plant. Proceed?</string>
     <string name="cancel_deletion">Cancel</string>
     <string name="confirm_deletion">Delete plant</string>
+    <string name="search_for_plant">Search for plant...</string>
 </resources>

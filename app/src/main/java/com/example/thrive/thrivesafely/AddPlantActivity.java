@@ -49,6 +49,7 @@ public class AddPlantActivity extends AppCompatActivity {
         if (insertPlant()) {
             Intent plantsIntent = new Intent(AddPlantActivity.this, PlantsActivity.class);
             startActivity(plantsIntent);
+            finish();
         }
     }
 

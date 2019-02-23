@@ -93,6 +93,7 @@ public class EditPlantActivity extends AppCompatActivity {
             Intent chosenPlantIntent = new Intent(EditPlantActivity.this, ChosenPlantActivity.class);
             chosenPlantIntent.putExtra(FINAL_PLANT_ID, id);
             startActivity(chosenPlantIntent);
+            finish();
         }
     }
 
