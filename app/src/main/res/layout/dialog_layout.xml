@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/dialog_title"
         android:fontFamily="cursive"
         android:gravity="center"
         android:textColor="@color/main_title"
@@ -15,6 +16,7 @@
         android:scaleType="center"
         android:contentDescription="@string/app_name" />
     <TextView
+        android:id="@+id/dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

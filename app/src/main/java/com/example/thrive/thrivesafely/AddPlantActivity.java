@@ -85,9 +85,10 @@ public class AddPlantActivity extends AppCompatActivity {
             minTempInt = Integer.parseInt(minTempString);
         }
 
-        DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
-        Date date = new Date();
-        String today = dateFormat.format(date);
+//        DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
+//        Date date = new Date();
+//        String today = dateFormat.format(date);
+        String today = "20-02-2019";
 
         ContentValues values = new ContentValues();
         values.put(PlantEntry.COLUMN_NAME, nameString);

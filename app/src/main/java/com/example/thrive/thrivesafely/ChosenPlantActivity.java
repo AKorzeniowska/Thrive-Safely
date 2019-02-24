@@ -157,11 +157,11 @@ public class ChosenPlantActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-        final Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        final Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-        LinearLayout.LayoutParams buttonLayoutParams = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
+//        final Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+//        final Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+//        LinearLayout.LayoutParams buttonLayoutParams = (LinearLayout.LayoutParams) positiveButton.getLayoutParams();
 //        buttonLayoutParams.leftMargin = 5;
-        positiveButton.setLayoutParams(buttonLayoutParams);
-        negativeButton.setLayoutParams(buttonLayoutParams);
+//        positiveButton.setLayoutParams(buttonLayoutParams);
+//        negativeButton.setLayoutParams(buttonLayoutParams);
     }
 }

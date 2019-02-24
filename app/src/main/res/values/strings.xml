@@ -32,4 +32,11 @@
     <string name="water_tomorrow">tomorrow</string>
     <string name="water_in_X_days">in %1d days</string>
     <string name="water_us_later">Water us later</string>
+    <string name="water_X_days_ago">%1d days ago</string>
+    <string name="water_us_today">Water us today</string>
+    <string name="forgot_to_water">You forgot to water us!</string>
+    <string name="water_yesterday">yesterday</string>
+    <string name="confirm_watering_dialog">Have you watered %1s?</string>
+    <string name="yes">Yes!</string>
+    <string name="no">Not yet</string>
 </resources>
