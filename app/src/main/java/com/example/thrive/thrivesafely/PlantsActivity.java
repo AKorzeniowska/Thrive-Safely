@@ -108,6 +108,7 @@ public class PlantsActivity extends AppCompatActivity {
                 Intent chosenPlantIntent = new Intent(PlantsActivity.this, ChosenPlantActivity.class);
                 chosenPlantIntent.putExtra(FINAL_PLANT_ID, idList.get(position));
                 startActivity(chosenPlantIntent);
+                finish();
             }
         });
     }
@@ -115,6 +116,7 @@ public class PlantsActivity extends AppCompatActivity {
     public void addPlant (View view){
         Intent intent = new Intent(this, AddPlantActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void listGetterByName(String name){

@@ -30,6 +30,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
     private Integer watering;
     private Integer fertilizing;
     private Integer minTemperature;
+    private String lastWatering;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,8 @@ public class ChosenPlantActivity extends AppCompatActivity {
                 PlantEntry.COLUMN_SPECIES,
                 PlantEntry.COLUMN_WATERING,
                 PlantEntry.COLUMN_FERTILIZING,
-                PlantEntry.COLUMN_MIN_TEMP
+                PlantEntry.COLUMN_MIN_TEMP,
+                PlantEntry.COLUMN_LAST_WATERING
         };
         String selection = PlantEntry._ID + "=?";
         String [] selectionArgs = {String.valueOf(id)};
@@ -65,6 +67,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
         int wateringColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_WATERING);
         int fertilizingColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_FERTILIZING);
         int minTempColumnIndex = cursor.getColumnIndex(PlantEntry.COLUMN_MIN_TEMP);
+        int lastWateringColumnIndex  = cursor.getColumnIndex(PlantEntry.COLUMN_LAST_WATERING);
 
         while (cursor.moveToNext()){
             name = cursor.getString(nameColumnIndex);
@@ -72,6 +75,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
             watering = cursor.getInt(wateringColumnIndex);
             fertilizing = cursor.getInt(fertilizingColumnIndex);
             minTemperature = cursor.getInt(minTempColumnIndex);
+            lastWatering = cursor.getString(lastWateringColumnIndex);
         }
         cursor.close();
     }
@@ -82,6 +86,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
         TextView wateringText = (TextView) findViewById(R.id.watering_frequency_text);
         TextView fertilizingText = (TextView) findViewById(R.id.fertilizing_frequency_text);
         TextView minTempText = (TextView) findViewById(R.id.acceptable_temperature_text);
+        TextView lastWateringText = (TextView) findViewById(R.id.last_watering_text);
 
         TextView fertilizingIntroText = (TextView) findViewById(R.id.fertilizing_intro);
         TextView minTempIntroText = (TextView) findViewById(R.id.min_temp_intro);
@@ -93,6 +98,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
         else{ nameText.setText(species); }
 
         wateringText.setText(getString(R.string.how_often_text, watering));
+        lastWateringText.setText(lastWatering);
         fertilizingText.setText(getString(R.string.how_often_text, fertilizing));
         minTempText.setText(getString(R.string.higher_than_temp_text, minTemperature));
 

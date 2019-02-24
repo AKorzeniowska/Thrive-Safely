@@ -19,6 +19,11 @@ import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 import com.example.thrive.thrivesafely.data.PlantDBHelper;
 import com.example.thrive.thrivesafely.exceptions.IllegalInputData;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddPlantActivity extends AppCompatActivity {
     private PlantDBHelper mDbHelper;
     private EditText mNameEditText;
@@ -80,12 +85,17 @@ public class AddPlantActivity extends AppCompatActivity {
             minTempInt = Integer.parseInt(minTempString);
         }
 
+        DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
+        Date date = new Date();
+        String today = dateFormat.format(date);
+
         ContentValues values = new ContentValues();
         values.put(PlantEntry.COLUMN_NAME, nameString);
         values.put(PlantEntry.COLUMN_SPECIES, speciesString);
         values.put(PlantEntry.COLUMN_WATERING, wateringInt);
         values.put(PlantEntry.COLUMN_FERTILIZING, fertilizingInt);
         values.put(PlantEntry.COLUMN_MIN_TEMP, minTempInt);
+        values.put(PlantEntry.COLUMN_LAST_WATERING, today);
 
         Uri newUri = getContentResolver().insert(PlantEntry.CONTENT_URI, values);
         if (newUri == null){

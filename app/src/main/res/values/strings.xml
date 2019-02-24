@@ -27,4 +27,9 @@
     <string name="cancel_deletion">Cancel</string>
     <string name="confirm_deletion">Delete plant</string>
     <string name="search_for_plant">Search for plant...</string>
+    <string name="last_watering_text">Last watering:</string>
+    <string name="water_today">today</string>
+    <string name="water_tomorrow">tomorrow</string>
+    <string name="water_in_X_days">in %1d days</string>
+    <string name="water_us_later">Water us later</string>
 </resources>

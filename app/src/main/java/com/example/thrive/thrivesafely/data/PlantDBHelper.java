@@ -7,7 +7,7 @@ import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 
 public class PlantDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "plants.db";
-    private static final Integer DATABASE_VERSION = 1;
+    private static final Integer DATABASE_VERSION = 2;
     private static final String SQL_CREATE_TABLE_PLANTS_DATA = "CREATE TABLE " +
             PlantEntry.TABLE_NAME + "(" +
             PlantEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -15,7 +15,8 @@ public class PlantDBHelper extends SQLiteOpenHelper {
             PlantEntry.COLUMN_SPECIES + " TEXT, " +
             PlantEntry.COLUMN_WATERING + " INTEGER NOT NULL, " +
             PlantEntry.COLUMN_FERTILIZING + " INTEGER, " +
-            PlantEntry.COLUMN_MIN_TEMP + " INTEGER);";
+            PlantEntry.COLUMN_MIN_TEMP + " INTEGER, " +
+            PlantEntry.COLUMN_LAST_WATERING + " TEXT NOT NULL);";
 
     private static final String SQL_DELETE_TABLE_PLANTS_DATA = "DROP TABLE IF EXISTS " +
             PlantEntry.TABLE_NAME + ";";
