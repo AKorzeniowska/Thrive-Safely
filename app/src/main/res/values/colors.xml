@@ -3,4 +3,5 @@
     <color name="main_background">#dbfcc4</color>
     <color name="main_title">#1d8716</color>
     <color name="colorAccent">#1d8716</color>
+    <color name="dateSelector">#a07aec72</color>
 </resources>

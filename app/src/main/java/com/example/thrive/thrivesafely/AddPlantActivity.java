@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.example.thrive.thrivesafely.exceptions.IllegalInputData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,6 +33,9 @@ public class AddPlantActivity extends AppCompatActivity {
     private EditText mWateringEditText;
     private EditText mFertilizingEditText;
     private EditText mMinTempEditText;
+    private EditText mLastWateringEditText;
+
+    private CalendarView mCalendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,12 @@ public class AddPlantActivity extends AppCompatActivity {
         mWateringEditText = findViewById(R.id.watering_edit_text);
         mFertilizingEditText = findViewById(R.id.fertilizing_edit_text);
         mMinTempEditText = findViewById(R.id.min_temp_edit_text);
+        mLastWateringEditText = findViewById(R.id.last_watering_edit_text);
+
+        mCalendarView = (CalendarView)findViewById(R.id.add_plant_calendar);
+        mCalendarView.setVisibility(View.GONE);
+
+        setPickDateListener();
     }
 
 
@@ -64,6 +75,7 @@ public class AddPlantActivity extends AppCompatActivity {
         String wateringString = mWateringEditText.getText().toString().trim();
         String fertilizingString = mFertilizingEditText.getText().toString().trim();
         String minTempString = mMinTempEditText.getText().toString().trim();
+        String lastWateringString = mLastWateringEditText.getText().toString().trim();
 
         try{
             if (nameString.equals("") && speciesString.equals("")) {
@@ -71,6 +83,12 @@ public class AddPlantActivity extends AppCompatActivity {
             }
             if (wateringString.equals("")){
                 throw new IllegalInputData(this, IllegalInputData.NO_GIVEN_WATERING);
+            }
+            if (wateringString.matches("0[0-9]*") || !wateringString.matches("[0-9]+")){
+                throw new IllegalInputData(this, IllegalInputData.INVALID_WATERING_INPUT);
+            }
+            if (lastWateringString.equals("")){
+                throw new IllegalInputData(this, IllegalInputData.NO_GIVEN_LAST_WATERING);
             }
         } catch (IllegalInputData ex) { return false; }
 
@@ -85,10 +103,6 @@ public class AddPlantActivity extends AppCompatActivity {
             minTempInt = Integer.parseInt(minTempString);
         }
 
-//        DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
-//        Date date = new Date();
-//        String today = dateFormat.format(date);
-        String today = "20-02-2019";
 
         ContentValues values = new ContentValues();
         values.put(PlantEntry.COLUMN_NAME, nameString);
@@ -96,7 +110,7 @@ public class AddPlantActivity extends AppCompatActivity {
         values.put(PlantEntry.COLUMN_WATERING, wateringInt);
         values.put(PlantEntry.COLUMN_FERTILIZING, fertilizingInt);
         values.put(PlantEntry.COLUMN_MIN_TEMP, minTempInt);
-        values.put(PlantEntry.COLUMN_LAST_WATERING, today);
+        values.put(PlantEntry.COLUMN_LAST_WATERING, lastWateringString);
 
         Uri newUri = getContentResolver().insert(PlantEntry.CONTENT_URI, values);
         if (newUri == null){
@@ -106,6 +120,39 @@ public class AddPlantActivity extends AppCompatActivity {
             Toast.makeText(this, "Plant has been added successfully", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    private void datePicker(){
+        mCalendarView.setVisibility(View.VISIBLE);
+        Date today = Calendar.getInstance().getTime();
+        mCalendarView.setDate(today.getTime());
+
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                String dayFixed = String.valueOf(dayOfMonth);
+                String monthFixed = String.valueOf(month+1);
+                if (month < 10){
+                    monthFixed = "0" + monthFixed;
+                }
+
+                if (dayOfMonth < 10){
+                    dayFixed = "0" + dayFixed;
+                }
+                String chosenDate = dayFixed + "-" + monthFixed + "-" + year;
+                mLastWateringEditText.setText(chosenDate);
+                mCalendarView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void setPickDateListener(){
+        mLastWateringEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker();
+            }
+        });
     }
 
 }

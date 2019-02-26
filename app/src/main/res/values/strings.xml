@@ -6,10 +6,10 @@
     <string name="calendar_button_text">calendar</string>
     <string name="textview">TextView</string>
     <string name="add_new_plant_button">add new plant</string>
-    <string name="watering_intro_text">How often you want to water this plant:</string>
-    <string name="fertilizing_info_text">How often you want to fertilize this plant:</string>
+    <string name="watering_intro_text">How often you want \nto water this plant:</string>
+    <string name="fertilizing_info_text">How often you want \nto fertilize this plant:</string>
     <string name="how_often_text">Every %1d days</string>
-    <string name="acceptable_temperature_text">What temperature does it like:</string>
+    <string name="acceptable_temperature_text">What temperature \ndoes it like:</string>
     <string name="higher_than_temp_text">Higher than %1d *C</string>
     <string name="add_plant_form_name">Name</string>
     <string name="add_plant_form_species">Species</string>
@@ -39,4 +39,5 @@
     <string name="confirm_watering_dialog">Have you watered %1s?</string>
     <string name="yes">Yes!</string>
     <string name="no">Not yet</string>
+    <string name="last_time_you_watered_this_plant">Last time you watered it</string>
 </resources>

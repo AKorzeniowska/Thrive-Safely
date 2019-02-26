@@ -7,6 +7,7 @@
     tools:context=".EditPlantActivity"
     android:background="@color/main_background">
 
+
     <EditText
         android:id="@+id/name_edit_text"
         android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="69dp"
         android:ems="10"
         android:fontFamily="cursive"
@@ -48,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="69dp"
         android:ems="10"
         android:fontFamily="cursive"
@@ -66,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="69dp"
         android:ems="10"
         android:fontFamily="cursive"
@@ -84,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="69dp"
         android:ems="10"
         android:fontFamily="cursive"
@@ -97,27 +98,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fertilizing_edit_text" />
 
+    <EditText
+        android:id="@+id/last_watering_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="69dp"
+        android:ems="10"
+        android:fontFamily="cursive"
+        android:hint="@string/last_time_you_watered_this_plant"
+        android:inputType="number"
+        android:textColor="@color/main_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/min_temp_edit_text" />
+
+    <CalendarView
+        android:id="@+id/edit_plant_calendar"
+        android:layout_width="321dp"
+        android:layout_height="307dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="31dp"
+        android:background="@color/main_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/CalenderViewCustom"
+        android:firstDayOfWeek="2"
+        android:dateTextAppearance="@style/CalenderViewDateCustomText"
+        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
     <Button
-        android:onClick="submitUpdatedPlant"
         android:id="@+id/save_changes_button"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="179dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="148dp"
-        android:layout_marginBottom="74dp"
         android:background="@color/main_title"
         android:fontFamily="cursive"
+        android:onClick="submitUpdatedPlant"
         android:text="@string/save_changes_form_button"
         android:textAllCaps="false"
         android:textColor="@color/main_background"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/min_temp_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/last_watering_edit_text" />
 
     <TextView
         android:id="@+id/edit_plant_title"

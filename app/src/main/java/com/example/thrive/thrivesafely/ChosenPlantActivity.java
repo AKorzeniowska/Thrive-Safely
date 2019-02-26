@@ -117,6 +117,7 @@ public class ChosenPlantActivity extends AppCompatActivity {
         Intent editPlantIntent = new Intent(ChosenPlantActivity.this, EditPlantActivity.class);
         editPlantIntent.putExtra(FINAL_PLANT_ID, id);
         startActivity(editPlantIntent);
+        finish();
     }
 
     public void deletePlantButton (View view) {
