@@ -61,6 +61,9 @@ public class NotificationUtils {
         notificationManager.notify(WATER_NOTIFICATION_ID, notificationBuilder.build());
     }
 
+    //todo: add buttons to notification - "later" and "already did" and handle them
+    //todo: list plants that need watering in expanded notification
+
     public static void clearAllNotifications (Context context){
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();

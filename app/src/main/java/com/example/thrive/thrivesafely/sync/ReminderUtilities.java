@@ -41,7 +41,11 @@ public class ReminderUtilities {
                 .setReplaceCurrent(true)
                 .build();
 
+        //todo: personalize intervals of notifications
+
         dispatcher.schedule(constraintJob);
         isDailyInitialized = true;
     }
+
+    //todo: handle reminding notifications
 }
