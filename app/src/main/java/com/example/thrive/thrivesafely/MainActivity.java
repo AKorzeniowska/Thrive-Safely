@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.thrive.thrivesafely.notifications.NotificationUtils;
+import com.example.thrive.thrivesafely.sync.ReminderUtilities;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ReminderUtilities.scheduleDailyReminder(this);
     }
 
     public void openPlants(View view){
@@ -21,5 +26,9 @@ public class MainActivity extends AppCompatActivity {
     public void openCalendar (View view){
         Intent calendarIntent = new Intent(this, CalendarActivity.class);
         startActivity(calendarIntent);
+    }
+
+    public void createNotification (View view){
+        NotificationUtils.remindUserToWater(this);
     }
 }

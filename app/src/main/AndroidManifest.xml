@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thrive.thrivesafely">
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,7 +27,19 @@
             android:exported="false" />
 
         <activity android:name=".EditPlantActivity" />
-        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".CalendarActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <service android:name=".sync.ReminderIntentService"
+            android:exported="false"/>
+        <service android:name=".sync.PostponedReminderFirebaseJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

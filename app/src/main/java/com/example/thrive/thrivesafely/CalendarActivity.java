@@ -3,11 +3,12 @@ package com.example.thrive.thrivesafely;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.thrive.thrivesafely.data.ListViewAdapter;
-import com.example.thrive.thrivesafely.data.PlantDBHelper;
-import com.example.thrive.thrivesafely.data.PlantProvider;
 import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 
 import java.text.DateFormat;
@@ -31,7 +30,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -47,18 +45,18 @@ public class CalendarActivity extends AppCompatActivity {
     private ListView forgottenListView;
 
     private static final DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
-    private PlantDBHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        mDbHelper = new PlantDBHelper(this);
 
         dataSetter();
         listViewFiller();
         setListeners();
+
     }
+
 
     private List<Pair<Integer, Pair<String, Integer>>> dataGetter(){
         List<Pair<Integer, Pair<String, Integer>>> nextWateringForEachPlant = new ArrayList<>();
@@ -200,7 +198,7 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    private int nextWateringDay (String lastWateringText, int wateringFrequency){
+    public static int nextWateringDay (String lastWateringText, int wateringFrequency){
         Date todayDate = Calendar.getInstance().getTime();
         Date lastWatering = null;
         try {
@@ -216,7 +214,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
 
-    private void updateWateringDate(int id){
+    public void updateWateringDate(int id){
         Date todayDate = Calendar.getInstance().getTime();
         String today = dateFormat.format(todayDate);
 
@@ -254,5 +252,4 @@ public class CalendarActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 }

@@ -40,4 +40,7 @@
     <string name="yes">Yes!</string>
     <string name="no">Not yet</string>
     <string name="last_time_you_watered_this_plant">Last time you watered it</string>
+    <string name="main_notification_channel_name">main_channel</string>
+    <string name="notification_title">Don\'t forget to water us!</string>
+    <string name="notification_body">You have plants to water today</string>
 </resources>
