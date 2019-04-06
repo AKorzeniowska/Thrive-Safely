@@ -44,7 +44,7 @@ public class CalendarActivity extends AppCompatActivity {
     private ListView todayListView;
     private ListView forgottenListView;
 
-    private static final DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
+    public static final DateFormat dateFormat = new SimpleDateFormat(PlantEntry.DATE_FORMAT_PATTERN, Locale.ENGLISH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

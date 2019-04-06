@@ -1,18 +1,17 @@
-package com.example.thrive.thrivesafely.sync;
+package com.example.thrive.thrivesafely.schedulers;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.example.thrive.thrivesafely.CalendarActivity;
 import com.example.thrive.thrivesafely.notifications.NotificationTasks;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
-import android.content.Context;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.util.Pair;
 import com.example.thrive.thrivesafely.data.PlantContract.PlantEntry;
 
-import java.util.ArrayList;
-
-public class PostponedReminderFirebaseJobService extends JobService {
+public class DailyReminderFirebaseJobService extends JobService {
 
     private AsyncTask mBackgroundTask;
 
@@ -21,9 +20,13 @@ public class PostponedReminderFirebaseJobService extends JobService {
         mBackgroundTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                Context context = PostponedReminderFirebaseJobService.this;
+                Context context = DailyReminderFirebaseJobService.this;
                 if (checkIfAnyToWater()) {
-                    NotificationTasks.executeTask(context, NotificationTasks.ACTION_LATER_REMINDER);
+                    NotificationTasks.executeTask(context, NotificationTasks.ACTION_REMINDER);
+                }
+                else {
+                    ReminderUtilities.isPostponedEnabled = false;
+                    ReminderUtilities.cancelPostponedReminder(context);
                 }
                 return null;
             }
@@ -44,7 +47,6 @@ public class PostponedReminderFirebaseJobService extends JobService {
             mBackgroundTask.cancel(true);
         return true;
     }
-
 
     private boolean checkIfAnyToWater(){
         String [] projection = {PlantEntry.COLUMN_WATERING, PlantEntry.COLUMN_LAST_WATERING};
@@ -67,6 +69,4 @@ public class PostponedReminderFirebaseJobService extends JobService {
         cursor.close();
         return false;
     }
-
-
 }

@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.example.thrive.thrivesafely.CalendarActivity;
+import com.example.thrive.thrivesafely.MainActivity;
 import com.example.thrive.thrivesafely.R;
 
 public class NotificationUtils {
@@ -20,6 +21,9 @@ public class NotificationUtils {
     private static final int WATER_NOTIFICATION_ID = 1138;
     private static final int WATER_PENDING_INTENT_ID = 3417;
     private static final String WATER_NOTIFICATION_CHANNEL_ID = "watering_notification_channel";
+
+    private static final int ACTION_DISMISS_PENDING_INTENT_ID = 7;
+    private static final int ACTION_CONFIRM_PENDING_INTENT_ID = 8;
 
     private static PendingIntent contentIntent (Context context){
         Intent startActivityIntent = new Intent(context, CalendarActivity.class);
@@ -56,16 +60,58 @@ public class NotificationUtils {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
+                .addAction(remindMeLaterAction(context))
+                .addAction(confirmAction((context)))
                 .setAutoCancel(true);
 
         notificationManager.notify(WATER_NOTIFICATION_ID, notificationBuilder.build());
     }
 
-    //todo: add buttons to notification - "later" and "already did" and handle them
     //todo: list plants that need watering in expanded notification
 
     public static void clearAllNotifications (Context context){
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
+
+    private static NotificationCompat.Action remindMeLaterAction(Context context){
+        Intent remindMeLaterIntent = new Intent(context, NotificationIntentService.class);
+        remindMeLaterIntent.setAction(NotificationTasks.ACTION_DISMISS);
+        PendingIntent remindLaterPendingIntent = PendingIntent.getService(
+                context,
+                ACTION_DISMISS_PENDING_INTENT_ID,
+                remindMeLaterIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action remindLaterAction = new NotificationCompat.Action(
+                R.drawable.icon_flowers,
+                "Remind me later",
+                remindLaterPendingIntent);
+
+        return remindLaterAction;
+    }
+
+    private static NotificationCompat.Action confirmAction(Context context){
+        Intent confirmIntent = new Intent(context, NotificationIntentService.class);
+        confirmIntent.setAction(NotificationTasks.ACTION_CONFIRM);
+        PendingIntent confirmPendingIntent = PendingIntent.getService(
+                context,
+                ACTION_CONFIRM_PENDING_INTENT_ID,
+                confirmIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action confirmAction = new NotificationCompat.Action(
+                R.drawable.icon_flowers,
+                "Already did it!",
+                confirmPendingIntent);
+
+        return confirmAction;
+    }
+
+//    private static NotificationCompat.Action quitReminding (Context context){
+//        Intent quitRemindingIntent = new Intent(context, NotificationIntentService.class);
+//        quitRemindingIntent.setAction(NotificationTasks.ACTION_CONFIRM);
+//        PendingIntent quitRemindingPendingIntent
+//    }
+
 }

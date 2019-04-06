@@ -31,9 +31,16 @@
             android:launchMode="singleTop">
         </activity>
 
-        <service android:name=".sync.ReminderIntentService"
+        <service android:name=".notifications.NotificationIntentService"
             android:exported="false"/>
-        <service android:name=".sync.PostponedReminderFirebaseJobService"
+        <service android:name=".schedulers.PostponedReminderFirebaseJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".schedulers.DailyReminderFirebaseJobService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
